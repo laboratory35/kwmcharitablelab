@@ -33,11 +33,11 @@ nav {
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #1a5f7a;
+    color: #1a6529;
 }
 
 .logo span {
-    color: #e74c3c;
+    color: #2ba845;
 }
 
 nav ul {
@@ -47,13 +47,26 @@ nav ul {
 
 nav ul li a {
     text-decoration: none;
-    color: #1a5f7a;
+    color: #2ba845;
     padding: 0.5rem 1rem;
     transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-    color: #e74c3c;
+    color: #1a6529;
+}
+
+nav ul li a.login-btn {
+    background: #1a6529;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a.login-btn:hover {
+    background: #2ba845;
+    color: white;
 }
 
 /* Mobile Menu Button */
@@ -69,7 +82,7 @@ nav ul li a:hover {
     display: block;
     width: 25px;
     height: 3px;
-    background: #1a5f7a;
+    background: #2ba845;
     margin: 5px 0;
     transition: 0.3s;
 }
@@ -77,12 +90,12 @@ nav ul li a:hover {
 /* Hero Section */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(26, 95, 122, 0.8), rgba(26, 95, 122, 0.8)),
+    background: linear-gradient(rgba(43, 168, 69, 0.6), rgba(187, 230, 195, 0.6)),
                 url('images/hero-path.jpg') center/cover;
     display: flex;
     align-items: center;
     text-align: center;
-    color: white;
+    color: #1a6529;
     padding: 0 1rem;
 }
 
@@ -104,7 +117,7 @@ nav ul li a:hover {
 .cta-button {
     display: inline-block;
     padding: 1rem 2rem;
-    background: #e74c3c;
+    background:#1a6529  ;
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -112,7 +125,7 @@ nav ul li a:hover {
 }
 
 .cta-button:hover {
-    background: #c0392b;
+    background: #1a6529;
 }
 
 /* Sections */
@@ -122,7 +135,7 @@ section {
 
 section h2 {
     text-align: center;
-    color: #1a5f7a;
+    color: #1a6529;
     margin-bottom: 3rem;
 }
 
@@ -154,7 +167,7 @@ section h2 {
 }
 
 .service-card h3 {
-    color: #1a5f7a;
+    color: #1a6529;
     padding: 1rem;
 }
 
@@ -185,7 +198,7 @@ section h2 {
 }
 
 .facility h3 {
-    color: #1a5f7a;
+    color: #1a6529;
     margin-bottom: 0.5rem;
 }
 
@@ -216,7 +229,7 @@ section h2 {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(26, 95, 122, 0.8);
+    background: rgba(43, 168, 69, 0.6);
     color: white;
     padding: 1rem;
     transform: translateY(100%);
@@ -253,7 +266,7 @@ section h2 {
 }
 
 .team-member h3 {
-    color: #1a5f7a;
+    color: #1a6529;
     margin-bottom: 0.5rem;
 }
 
@@ -292,7 +305,7 @@ section h2 {
 
 .submit-button {
     padding: 1rem;
-    background: #e74c3c;
+    background: #1a6529;
     color: white;
     border: none;
     border-radius: 5px;
@@ -302,12 +315,12 @@ section h2 {
 }
 
 .submit-button:hover {
-    background: #c0392b;
+    background: #2ba845;
 }
 
 /* Footer */
 footer {
-    background: #1a5f7a;
+    background: #2ba845;
     color: white;
     padding: 3rem 1rem 1rem;
 }
@@ -364,6 +377,11 @@ footer {
 
     nav ul li a {
         font-size: 1.2rem;
+    }
+
+    nav ul li a.login-btn {
+        margin-top: 1rem;
+        display: inline-block;
     }
 
     /* Hero Section */

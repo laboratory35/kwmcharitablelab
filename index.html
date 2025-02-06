@@ -5,6 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PathLaboratory-35</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .alert {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal .form-group {
+            margin-bottom: 15px;
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .modal .submit-button {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .modal .alert {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .modal .alert.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .modal .alert.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -20,7 +105,8 @@
                 <li><a href="#services">Services</a></li>
                 <li><a href="#facilities">Facilities</a></li>
                 <li><a href="#team">Team</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#contact">Book Test</a></li>
+                <li><a href="#" class="login-btn" onclick="openLoginModal(event)">Admin Login</a></li>
             </ul>
         </nav>
     </header>
@@ -129,39 +215,58 @@
     <section id="contact" class="contact">
         <h2>Book a Test</h2>
         <div class="contact-container">
-            <form class="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <input type="tel" placeholder="Phone Number" required>
-                <select required>
+            <div id="alertBox" class="alert"></div>
+            <form class="contact-form" id="bookingForm">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <input type="tel" name="phone" placeholder="Phone Number" required>
+                <select name="testType" required>
                     <option value="">Select Test Type</option>
                     <option value="blood">Blood Test</option>
                     <option value="urine">Urine Analysis</option>
-                    <option value="histopathology">Histopathology</option>
-                    <option value="microbiology">Microbiology</option>
+                    <option value="covid">COVID-19 Test</option>
+                    <option value="diabetes">Diabetes Screening</option>
                 </select>
-                <textarea placeholder="Additional Information"></textarea>
-                <button type="submit" class="submit-button">Book Appointment</button>
+                <input type="date" name="preferredDate" required>
+                <textarea name="message" placeholder="Additional Message (Optional)"></textarea>
+                <button type="submit" class="submit-button" id="submitBtn">Book Appointment</button>
             </form>
         </div>
     </section>
 
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2>Admin Login</h2>
+            <div id="loginAlert" class="alert"></div>
+            <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+                <div class="form-group">
+                    <input type="text" id="username" name="username" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="submit-button">Login</button>
+            </form>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>PathLab</h3>
+                <h3>Manav Kalyan Parisar</h3>
                 <p>Your trusted partner in diagnostic healthcare</p>
             </div>
             <div class="footer-section">
                 <h3>Contact Info</h3>
-                <p>Email: info@pathlab.com</p>
-                <p>Phone: (555) 123-4567</p>
-                <p>Address: 123 Medical Center Drive</p>
+                <p>Email: kwmcharitable@gmail.com</p>
+                <p>Contact: +91-78148 03584</p>
+                <p>Address: Manav Kalyan Parisar <br/> Ram Raksheshwar Temple, Dharamshala<br/> Sector 35-C, Chandigarh</p>
             </div>
             <div class="footer-section">
                 <h3>Working Hours</h3>
-                <p>Monday - Saturday: 7:00 AM - 9:00 PM</p>
-                <p>Sunday: 8:00 AM - 1:00 PM</p>
+                <p>Monday - Saturday: 8:00 AM - 5:00 PM</p>
+                <p>Sunday: Close</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -169,23 +274,143 @@
         </div>
     </footer>
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navMenu = document.querySelector('nav ul');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        // Mobile menu functionality
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
         });
 
-        // Close mobile menu when clicking a link
-        const navLinks = document.querySelectorAll('nav ul li a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            });
+        // Form submission
+        const form = document.getElementById('bookingForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const alertBox = document.getElementById('alertBox');
+
+        function showAlert(message, isError = false) {
+            alertBox.textContent = message;
+            alertBox.className = `alert ${isError ? 'alert-error' : 'alert-success'}`;
+            alertBox.style.display = 'block';
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 5000);
+        }
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            try {
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+                
+                const response = await fetch('http://localhost:5000/api/book', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showAlert(result.message);
+                    this.reset();
+                } else {
+                    showAlert(result.error || 'Error submitting form', true);
+                }
+            } catch (error) {
+                showAlert('Error connecting to server. Please try again later.', true);
+                console.error('Error:', error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Book Appointment';
+            }
         });
+
+        // Admin Login Modal Functions
+        function openLoginModal(event) {
+            event.preventDefault();
+            document.getElementById('loginModal').style.display = 'block';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('adminLoginForm').reset();
+            document.getElementById('loginAlert').style.display = 'none';
+        }
+
+        function showLoginAlert(message, isError = false) {
+            const alert = document.getElementById('loginAlert');
+            alert.textContent = message;
+            alert.className = `alert ${isError ? 'error' : 'success'}`;
+            alert.style.display = 'block';
+            
+            if (!isError) {
+                setTimeout(() => {
+                    closeLoginModal();
+                    window.location.href = '/admin';
+                }, 1000);
+            }
+        }
+
+        async function handleAdminLogin(event) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            // Basic validation
+            if (!username || !password) {
+                showLoginAlert('Please enter both username and password', true);
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Logging in...';
+
+            try {
+                const response = await fetch('/admin/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showLoginAlert('Login successful! Redirecting to dashboard...', false);
+                    setTimeout(() => {
+                        window.location.href = '/admin';
+                    }, 1000);
+                } else {
+                    // Handle specific error cases
+                    if (response.status === 401) {
+                        showLoginAlert('Invalid username or password', true);
+                    } else if (response.status === 400) {
+                        showLoginAlert(data.error || 'Invalid request', true);
+                    } else {
+                        showLoginAlert('Server error. Please try again later.', true);
+                    }
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showLoginAlert('Unable to connect to server. Please check your internet connection and try again.', true);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Login';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target === modal) {
+                closeLoginModal();
+            }
+        }
     </script>
 </body>
 </html>
