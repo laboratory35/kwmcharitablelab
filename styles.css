@@ -56,11 +56,29 @@ nav ul li a:hover {
     color: #e74c3c;
 }
 
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: #1a5f7a;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
 /* Hero Section */
 .hero {
     height: 100vh;
     background: linear-gradient(rgba(26, 95, 122, 0.8), rgba(26, 95, 122, 0.8)),
-                url('https://via.placeholder.com/1920x1080/1a5f7a/ffffff?text=Modern+Pathology+Laboratory') center/cover;
+                url('images/hero-path.jpg') center/cover;
     display: flex;
     align-items: center;
     text-align: center;
@@ -319,24 +337,82 @@ footer {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        text-align: center;
+@media screen and (max-width: 768px) {
+    /* Mobile Navigation */
+    .mobile-menu-btn {
+        display: block;
+        z-index: 1001;
     }
 
     nav ul {
-        margin-top: 1rem;
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
     }
 
+    nav ul.active {
+        display: flex;
+    }
+
+    nav ul li a {
+        font-size: 1.2rem;
+    }
+
+    /* Hero Section */
     .hero h1 {
         font-size: 2rem;
     }
 
+    .hero p {
+        font-size: 1rem;
+    }
+
+    /* Section Padding */
+    section {
+        padding: 3rem 1rem;
+    }
+
+    /* Grid Adjustments */
     .services-grid,
     .facilities-grid,
     .gallery-grid,
     .team-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    /* Card and Image Heights */
+    .service-img,
+    .facility-img,
+    .gallery-img {
+        height: 180px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Further adjustments for smaller screens */
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .cta-button {
+        padding: 0.8rem 1.5rem;
+    }
+
+    section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
     }
 }
